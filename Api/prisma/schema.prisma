@@ -1,0 +1,119 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String
+  password String
+  token String @default("")
+  tokenExpiry DateTime @default(now())
+  lastLogin DateTime @default(now())
+  creationDate DateTime @default(now())
+  roleId Int
+  role Role @relation(fields: [roleId], references: [id])
+}
+
+model Role {
+  id    Int     @id @default(autoincrement())
+  label String @unique
+  permissions Permission[]
+  User User[]
+}
+
+model Permission {
+  id    Int     @id @default(autoincrement())
+  label String  @unique
+  roles Role[]
+}
+
+
+model Employee {  
+  id    Int     @id @default(autoincrement())
+  name  String
+  surname String
+  hoursPerWeek Int
+  entryDate DateTime
+  phone String?
+  email String?
+  creationDate DateTime @default(now())
+  WorkDays WorkDay[]
+
+  MondayNoon Boolean @default(false)
+  MondayEvening Boolean @default(false)
+
+  TuesdayNoon Boolean @default(false)
+  TuesdayEvening Boolean @default(false)
+
+  WednesdayNoon Boolean @default(false)
+  WednesdayEvening Boolean @default(false)
+
+  ThursdayNoon Boolean @default(false)
+  ThursdayEvening Boolean @default(false)
+
+  FridayNoon Boolean @default(false)
+  FridayEvening Boolean @default(false)
+
+  SaturdayNoon Boolean @default(false)
+  SaturdayEvening Boolean @default(false)
+  
+  SundayNoon Boolean @default(false)
+  SundayEvening Boolean @default(false)
+
+  formations Formation[] @relation("EmployeeFormations")
+}
+model Formation {
+  id    Int     @id @default(autoincrement())
+  label String
+  employees Employee[] @relation("EmployeeFormations")
+}
+
+model WorkWeek {
+  id    Int     @id @default(autoincrement())
+  year Int
+  weekNumber Int @unique
+  WorkDay WorkDay[]
+}
+
+
+model WorkDay {
+  id   Int     @id @default(autoincrement())
+  workWeekId Int
+  WorkWeek WorkWeek @relation(fields: [workWeekId], references: [id])
+  employeeId Int
+  employee Employee @relation(fields: [employeeId], references: [id])
+  Days Days
+  WorkType String @default("")
+  ServiceType ServiceType
+  Schedules String @default("")
+  // Possibilité de rajouter des horaires ici
+}
+
+
+enum Days {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum ServiceType {
+  NOON
+  EVENING
+}
+

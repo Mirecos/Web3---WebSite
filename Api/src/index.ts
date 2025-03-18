@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import express, { Express, Request, Response } from "express";
 import { userRouter } from './routes/user';
 import { updatePermissions } from './Authorizations/Actions';
+import { nftRouter } from './routes/nft';
 
 export const prisma = new PrismaClient()
 
@@ -25,6 +26,7 @@ app.use(function (req, res, next) {
 app.use(express.json());
 
 app.use("/user", userRouter);
+app.use("/nft", nftRouter);
 app.get("/" , (req: Request, res: Response) => {
     res.send("Api is running correctly.")
 });

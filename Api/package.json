@@ -13,13 +13,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^5.20.0",
+    "@prisma/client": "^6.5.0",
     "bcrypt": "^5.1.1",
     "express": "^4.21.1",
     "glpk.js": "^4.0.2",
     "jsonwebtoken": "^9.0.2",
     "openai": "^4.80.1",
-    "prisma": "^5.20.0",
     "typescript": "^5.6.3"
   },
   "devDependencies": {
@@ -28,6 +27,7 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.7.5",
     "nodemon": "^3.1.7",
+    "prisma": "^6.5.0",
     "ts-node": "^10.9.1"
   },
   "pnpm": {

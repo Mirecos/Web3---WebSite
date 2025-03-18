@@ -26,6 +26,7 @@ services:
     container_name: app-api-blockchain
     ports: 
       - 8080:8080
+      - 5555:5555
     build: ./Api/
     environment:
       - PRODUCTION_MODE=${PRODUCTION_MODE}

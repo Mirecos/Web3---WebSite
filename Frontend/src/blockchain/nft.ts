@@ -19,8 +19,21 @@ const NFTcontractABI = [
         ],
         "stateMutability": "view",
         "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getAllTokens",
+        "outputs": [
+            {
+                "internalType": "uint256[]",
+                "name": "",
+                "type": "uint256[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
     }
 ];
-const NFTAdress = '0x5A20ad789a300D03A083b633914C46eaB43b15e6'
+const NFTAdress = '0xfc4dc60C3d1682e258050D747DE7A7f11789829e'
 
 export const NFTClient = getContract({ address: NFTAdress, abi: NFTcontractABI, client: client })

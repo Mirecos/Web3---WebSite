@@ -11,7 +11,8 @@ import {
     ListItem, 
     ListItemButton, 
     ListItemIcon, 
-    ListItemText
+    ListItemText,
+    Switch
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -19,6 +20,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import Button from '@mui/material/Button';
 import { blockchainClient } from '../blockchain/token';
+import { AppContext } from '../context/appContext';
 
 const drawerWidth = 240;
 
@@ -27,6 +29,7 @@ interface DrawerLayoutProps {
 }
 
 const DrawerLayout: React.FC<DrawerLayoutProps> = ({ children }) => {
+    const appContext = React.useContext(AppContext);
     const [totalSupply, setTotalSupply] = useState("");
     const [open, setOpen] = useState(false);
 
@@ -58,7 +61,7 @@ const DrawerLayout: React.FC<DrawerLayoutProps> = ({ children }) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Blockchain Dashboard
+                        OpenOcean
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
         
@@ -66,6 +69,12 @@ const DrawerLayout: React.FC<DrawerLayoutProps> = ({ children }) => {
                         <Typography variant="body1" noWrap component="div">
                             Total Supply of MRC Token: {totalSupply}
                         </Typography>
+
+                        <Switch
+                            checked={appContext.light}
+                            onChange={() => appContext.setLight(!appContext.light)}
+                            color="default"
+                        />
 
                         <Button 
                             color="inherit" 

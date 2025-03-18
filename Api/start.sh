@@ -7,5 +7,5 @@ else
     echo "Starting in development mode"
     npx prisma generate
     pnpm run migrate:dev
-    exec pnpm run dev
+    npx prisma studio & exec pnpm run dev
 fi

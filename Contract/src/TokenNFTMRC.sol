@@ -12,42 +12,18 @@ contract TokenNFTMRC is ERC721URIStorage, Ownable {
     // Array to keep track of all tokens
     uint256[] private _allTokens;
 
-    constructor()
+    constructor(address initialOwner)
         ERC721("MIRECOS NFT", "MRNFT")
-        Ownable(msg.sender)
+        Ownable(initialOwner)
     {
         // Mint 5 NFTs to the initial owner
         for (uint256 i = 0; i < 5; i++) {
             uint256 tokenId = _nextTokenId++;
-            _safeMint(msg.sender, tokenId);
-            _setTokenURI(tokenId, string(abi.encodePacked("https://web-production-8414.up.railway.app/", uint2str(tokenId))));
+            _safeMint(initialOwner, tokenId);
             _allTokens.push(tokenId);
         }
     }
     
-    // Helper function to convert uint256 to string
-    function uint2str(uint256 _i) internal pure returns (string memory) {
-        if (_i == 0) {
-            return "0";
-        }
-        uint256 j = _i;
-        uint256 len;
-        while (j != 0) {
-            len++;
-            j /= 10;
-        }
-        bytes memory bstr = new bytes(len);
-        uint256 k = len;
-        while (_i != 0) {
-            k = k - 1;
-            uint8 temp = (48 + uint8(_i - _i / 10 * 10));
-            bytes1 b1 = bytes1(temp);
-            bstr[k] = b1;
-            _i /= 10;
-        }
-        return string(bstr);
-    }
-
     // Function to mint new NFTs (only owner)
     function mint(address to, string memory tokenURI) public onlyOwner returns (uint256) {
         uint256 tokenId = _nextTokenId++;

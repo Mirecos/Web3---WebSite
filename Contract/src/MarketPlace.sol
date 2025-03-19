@@ -4,7 +4,7 @@ pragma solidity ^0.8.23;
 
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract MarketPlace is ReentrancyGuard, Ownable {
@@ -15,6 +15,10 @@ contract MarketPlace is ReentrancyGuard, Ownable {
         uint256 endTime;
         bool ended;
     }
+
+    constructor()
+        Ownable(msg.sender)
+    {}
 
     mapping(address => mapping(uint256 => Auction)) public auctions;
 
@@ -70,5 +74,9 @@ contract MarketPlace is ReentrancyGuard, Ownable {
         }
 
         emit AuctionEnded(nftContract, tokenId, auction.highestBidder, auction.highestBid);
+    }
+
+    function currentBid(address nftContract, uint256 tokenId) external view returns (uint256) {
+        return auctions[nftContract][tokenId].highestBid;
     }
 }

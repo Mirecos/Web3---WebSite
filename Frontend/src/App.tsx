@@ -6,11 +6,15 @@ import { Alert, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { Pages } from './types/Pages';
 import { AppContext } from './context/appContext';
 import DrawerLayout from './components/Sidebar';
-import { NFTClient } from './blockchain/nft';
 import HomePage from './Pages/Home';
 import { LightTheme } from './themes/LightTheme';
 import { DarkTheme } from './themes/DarkTheme';
 
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
 declare module '@mui/material/styles' {
   interface Theme {
     status: {
@@ -45,7 +49,7 @@ function App() {
   const [light, setLight] = React.useState(false);
   const [page, setPage] = useState(Pages.none);
   const [snackbar, setSnackbar] = useState({open: false, message: '', color: 'info' as 'info' | 'success' | 'error'});
-  
+
   const showSnack = (message: string, color: 'info' | 'success' | 'error') => {
     setSnackbar({open: true, message: message, color: color});
   };
@@ -60,9 +64,6 @@ function App() {
     if(identified)setPage(Pages.Home);
   }, [identified, page]);
 
-  NFTClient.read.getAllTokens().then((result) => {
-    console.log((result as BigInt).toString());
-  });
 
   return (
     <AppContext.Provider value={{ setPage: setPage, showSnackbar: showSnack, light: light, setLight: setLight }}>

@@ -32,6 +32,7 @@ const DrawerLayout: React.FC<DrawerLayoutProps> = ({ children }) => {
     const appContext = React.useContext(AppContext);
     const [totalSupply, setTotalSupply] = useState("");
     const [open, setOpen] = useState(false);
+    const [account, setAccount] = useState<string | null>(null);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -39,6 +40,20 @@ const DrawerLayout: React.FC<DrawerLayoutProps> = ({ children }) => {
 
     const handleDrawerClose = () => {
         setOpen(false);
+    };
+
+    const connectWallet = async () => {
+        console.log("Connecting wallet...");
+        if (window.ethereum) {
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                setAccount(accounts[0]);
+            } catch (error) {
+                console.error("User rejected the request.");
+            }
+        } else {
+            console.error("MetaMask is not installed.");
+        }
     };
 
     useEffect(()=>{
@@ -76,15 +91,22 @@ const DrawerLayout: React.FC<DrawerLayoutProps> = ({ children }) => {
                             color="default"
                         />
 
-                        <Button 
-                            color="inherit" 
-                            variant="outlined" 
-                            size="small" 
-                            startIcon={<AccountBalanceWalletIcon />}
-                            sx={{ ml: 2 }}
-                        >
-                            Connect Wallet
-                        </Button>
+                        {account ? (
+                            <Typography variant="body1" noWrap component="div" sx={{ ml: 2 }}>
+                                {account}
+                            </Typography>
+                        ) : (
+                            <Button 
+                                color="inherit" 
+                                variant="outlined" 
+                                size="small" 
+                                startIcon={<AccountBalanceWalletIcon />}
+                                sx={{ ml: 2 }}
+                                onClick={connectWallet}
+                            >
+                                Connect Wallet
+                            </Button>
+                        )}
                     </Box>
                 </Toolbar>
             </AppBar>

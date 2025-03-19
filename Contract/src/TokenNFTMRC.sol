@@ -25,10 +25,10 @@ contract TokenNFTMRC is ERC721URIStorage, Ownable {
     }
     
     // Function to mint new NFTs (only owner)
-    function mint(address to, string memory tokenURI) public onlyOwner returns (uint256) {
+    function mint(address to, string memory tokenUR) public onlyOwner returns (uint256) {
         uint256 tokenId = _nextTokenId++;
         _safeMint(to, tokenId);
-        _setTokenURI(tokenId, tokenURI);
+        _setTokenURI(tokenId, tokenUR);
         _allTokens.push(tokenId);
         return tokenId;
     }
@@ -47,5 +47,10 @@ contract TokenNFTMRC is ERC721URIStorage, Ownable {
     // Function to get all tokens
     function getAllTokens() public view returns (uint256[] memory) {
         return _allTokens;
+    }
+
+    // Function to get the token URI
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        return super.tokenURI(tokenId);
     }
 }

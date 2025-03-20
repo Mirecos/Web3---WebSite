@@ -1,6 +1,7 @@
 import { Card, CardActionArea, CardContent, CardMedia, Skeleton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getNftImageUrl } from "../api/nft";
+import { NFTClient } from "../blockchain/nft";
+import axios from "axios";
 
 interface NFTCardProps {
     id: number
@@ -8,13 +9,19 @@ interface NFTCardProps {
 
 export default function NFTCard(NFTCardProps: NFTCardProps) {
 
-    const [res, setRes] = useState<{url: string, name: string, description: string} | null>(null);
+    const [res, setRes] = useState<NFT | null>(null);
     useEffect(() => {
-        getNftImageUrl(NFTCardProps.id).then((res)=>{
-            if(res && res.data?.url){
-                setRes(res.data)
+        NFTClient.read.tokenURI([NFTCardProps.id]).then((result) => {
+            if(result){
+                axios.get(result as string).then((res)=>{
+                    setRes(res.data as NFT)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+
             }
         })
+
     }
     , [NFTCardProps.id])
 
@@ -25,9 +32,9 @@ export default function NFTCard(NFTCardProps: NFTCardProps) {
                     res?
                     <CardMedia
                         component="img"
-                        src={res?.url}
+                        src={res.image}
                         alt={`NFT ${NFTCardProps.id}`}
-                        sx={{ height: 140 }}
+                        sx={{ height: 200 }}
                     />:
                     <Skeleton variant="rectangular" width={200} height={140} />
 

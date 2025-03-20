@@ -49,18 +49,6 @@ function HomePage() {
                                 )
                             })
                     }
-                    <ListItem key={242} className='m-2'>
-                        <NFTCard id={242} />
-                    </ListItem>
-                    <ListItem key={333} className='m-2'>
-                        <NFTCard id={333} />
-                    </ListItem>
-                    <ListItem key={242} className='m-2'>
-                        <NFTCard id={242} />
-                    </ListItem>
-                    <ListItem key={333} className='m-2'>
-                        <NFTCard id={333} />
-                    </ListItem>
             </List>
         </Box>
     );

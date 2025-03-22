@@ -1,20 +1,26 @@
 import { Card, CardActionArea, CardContent, CardMedia, Skeleton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { NFTClient } from "../blockchain/nft";
+import { NFTClient, NFTMinecraftClient } from "../blockchain/nft";
 import axios from "axios";
 
 interface NFTCardProps {
-    id: number
+    id: number,
+    collection: number
 }
 
 export default function NFTCard(NFTCardProps: NFTCardProps) {
 
     const [res, setRes] = useState<NFT | null>(null);
     useEffect(() => {
-        NFTClient.read.tokenURI([NFTCardProps.id]).then((result) => {
+        let client
+        if(NFTCardProps.collection === 0)client = NFTClient
+        else if(NFTCardProps.collection === 1)client = NFTMinecraftClient
+
+        client.read.tokenURI([NFTCardProps.id]).then((result) => {
             if(result){
                 axios.get(result as string).then((res)=>{
                     setRes(res.data as NFT)
+                    console.log((res.data as NFT).image)
                 }).catch((err)=>{
                     console.log(err)
                 })

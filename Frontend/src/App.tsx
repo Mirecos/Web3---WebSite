@@ -37,17 +37,13 @@ function getCurrentPage(page: Pages){
     case Pages.Home:
       currentPage = <HomePage />;
       break;
-    case Pages.none:
-      currentPage = <div>None</div>;
-      break;
-
   }
   return currentPage;
 }
 
 function App() {
   const [light, setLight] = React.useState(false);
-  const [page, setPage] = useState(Pages.none);
+  const [page, setPage] = useState(Pages.Home);
   const [snackbar, setSnackbar] = useState({open: false, message: '', color: 'info' as 'info' | 'success' | 'error'});
 
   const showSnack = (message: string, color: 'info' | 'success' | 'error') => {
@@ -55,14 +51,14 @@ function App() {
   };
   
   let currentPage = getCurrentPage(page);
-  const [identified, setIdentified] = useState(false);
-  useEffect(() => {
-    const checkIdentification = async () => {
-      setIdentified(await isIdentified());
-    };
-    checkIdentification()
-    if(identified)setPage(Pages.Home);
-  }, [identified, page]);
+  // const [identified, setIdentified] = useState(false);
+  // useEffect(() => {
+  //   const checkIdentification = async () => {
+  //     setIdentified(await isIdentified());
+  //   };
+  //   checkIdentification()
+  //   if(identified)setPage(Pages.Home);
+  // }, [identified, page]);
 
 
   return (
@@ -70,7 +66,7 @@ function App() {
       <ThemeProvider theme={light?LightTheme:DarkTheme}>
         <CssBaseline />
         <div className='flex flex-row w-full min-h-screen'>
-          {
+          {/* {
             identified ?
             (
               <DrawerLayout>
@@ -81,7 +77,10 @@ function App() {
             <div className='w-full h-full fixed z-50'>
               <Login />
             </div>
-          }
+          } */}
+          <DrawerLayout>
+            {currentPage}
+          </DrawerLayout>
 
           {/* Global snackbar */}
           <Snackbar

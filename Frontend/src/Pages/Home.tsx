@@ -1,19 +1,29 @@
 import { Box, List, ListItem, Paper, Skeleton, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import { NFTClient } from '../blockchain/nft';
+import { NFTClient, NFTMinecraftClient } from '../blockchain/nft';
 import NFTCard from '../components/NFTCard';
 
 
 function HomePage() {
-    const [nftList, setNftList] = useState([] as string[]);
+    const [firstCollection, setFirstCollection] = useState([] as string[]);
+    const [secondCollection, setSecondCollection] = useState([] as string[]);
 
     useEffect(() => {
-        const fetchNFTList = async () => {
+        const fetchfirstCollection = async () => {
             NFTClient.read.getAllTokens().then((result) => {
-                setNftList((result as BigInt).toString().split(','));
+                setFirstCollection((result as BigInt).toString().split(','));
             });
         }
-        fetchNFTList()
+        const fetchSecondCollection = async () => {
+            NFTMinecraftClient.read.getAllTokens().then((result) => {
+                setSecondCollection((result as BigInt).toString().split(','));
+            });
+        }
+        fetchfirstCollection()
+        fetchSecondCollection()
+        console.log(firstCollection)
+        console.log(secondCollection)
+
     }, []);
 
     return (
@@ -36,15 +46,35 @@ function HomePage() {
             <h1 className='ml-6 my-4 text-3xl font-bold'>NFT Collection</h1>
             <List style={{ display: 'flex', flexDirection: 'row', overflowX: 'scroll', width: '100vw', scrollbarWidth: 'thin', scrollbarColor: 'white transparent' }}>
                     {
-                        nftList.length === 0 ?
+                        firstCollection.length === 0 ?
                             [1, 2, 3, 4, 5].map((index) => {
                                 return <Skeleton key={index} className='m-2' variant="rectangular" width={400} height={300} />
                             })
                             :
-                            nftList.map((nft, index) => {
+                            firstCollection.map((nft, index) => {
                                 return (
                                     <ListItem key={index} className='m-2'>
-                                        <NFTCard id={parseInt(nft)} />
+                                        <NFTCard id={parseInt(nft)} collection={0} />
+                                    </ListItem>
+                                )
+                            })
+                    }
+            </List>
+
+
+
+            <h1 className='ml-6 my-4 text-3xl font-bold'>Minecraft collection</h1>
+            <List style={{ display: 'flex', flexDirection: 'row', overflowX: 'scroll', width: '100vw', scrollbarWidth: 'thin', scrollbarColor: 'white transparent' }}>
+                    {
+                        secondCollection.length === 0 ?
+                            [1, 2, 3, 4, 5].map((index) => {
+                                return <Skeleton key={index} className='m-2' variant="rectangular" width={400} height={300} />
+                            })
+                            :
+                            secondCollection.map((nft, index) => {
+                                return (
+                                    <ListItem key={index} className='m-2'>
+                                        <NFTCard id={parseInt(nft)} collection={1} />
                                     </ListItem>
                                 )
                             })

@@ -11,35 +11,35 @@ services:
       - API_URL=${API_URL}
     volumes:
       - ./Frontend/src:/srv/src/
-  database:
-    container_name: app-database-blockchain
-    image: mysql:5.7
-    ports:
-      - "3306:3306"
-    environment:
-      - PRODUCTION_MODE=${PRODUCTION_MODE}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-  api:
-    container_name: app-api-blockchain
-    ports: 
-      - 8080:8080
-      - 5555:5555
-    build: ./Api/
-    environment:
-      - PRODUCTION_MODE=${PRODUCTION_MODE}
-      - DATABASE_URL=${DATABASE_URL}
-      - JWT_SECRET=${JWT_SECRET}
-      - TOKEN_EXPIRATION_DAYS=${TOKEN_EXPIRATION_DAYS}
-      - HOSTNAME=${HOSTNAME}
-      - PORT=${PORT}
-      - ROOT_USER_EMAIL=${ROOT_USER_EMAIL}
-      - ROOT_USER_PASSWORD=${ROOT_USER_PASSWORD}
-      - FRONTEND_URL=${FRONTEND_URL}
-    volumes:
-      - ./Api/src:/api/src/
-      - ./Api/prisma:/api/prisma/
-    depends_on:
-      - database
+  # database:
+  #   container_name: app-database-blockchain
+  #   image: mysql:5.7
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #     - PRODUCTION_MODE=${PRODUCTION_MODE}
+  #     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+  #     - MYSQL_DATABASE=${MYSQL_DATABASE}
+  #     - MYSQL_USER=${MYSQL_USER}
+  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  # api:
+  #   container_name: app-api-blockchain
+  #   ports: 
+  #     - 8080:8080
+  #     - 5555:5555
+  #   build: ./Api/
+  #   environment:
+  #     - PRODUCTION_MODE=${PRODUCTION_MODE}
+  #     - DATABASE_URL=${DATABASE_URL}
+  #     - JWT_SECRET=${JWT_SECRET}
+  #     - TOKEN_EXPIRATION_DAYS=${TOKEN_EXPIRATION_DAYS}
+  #     - HOSTNAME=${HOSTNAME}
+  #     - PORT=${PORT}
+  #     - ROOT_USER_EMAIL=${ROOT_USER_EMAIL}
+  #     - ROOT_USER_PASSWORD=${ROOT_USER_PASSWORD}
+  #     - FRONTEND_URL=${FRONTEND_URL}
+  #   volumes:
+  #     - ./Api/src:/api/src/
+  #     - ./Api/prisma:/api/prisma/
+  #   depends_on:
+  #     - database

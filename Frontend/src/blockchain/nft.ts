@@ -412,8 +412,8 @@ const NFTcontractABI = [
         "type": "function"
     }
 ];
-export const NFTAdress = '0xC64EDa40f7BF69047b28E159BFEC1b84eCF670Bc'
-export const NFTMinecraftAdress = '0x0EFc90b6Aa44911A68a85BcCdeF7F47f5b292DbA'
+export const NFTAdress = '0xEEe1e3bBF7421eeBBbC1E6072257f4C1515aC59e'
+export const NFTMinecraftAdress = '0xda0371A938a2D35804485a4bDF5783990Ac9cC65'
 
 
 export const NFTClient = getContract({ address: NFTAdress, abi: NFTcontractABI, client: client })

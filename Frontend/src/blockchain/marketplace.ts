@@ -210,5 +210,5 @@ const contractABI = [
 
 ];
 
-const marketplaceContractAddress = '0xf171FA1956807Bc48BF7Fecb7505ccCB19463839';
+const marketplaceContractAddress = '0x8CF2831b61214D510f1cdef42fc4AE02cdD053a5';
 export const marketplaceClient = getContract({ address: marketplaceContractAddress, abi: contractABI, client: client })

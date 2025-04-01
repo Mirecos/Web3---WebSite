@@ -45,6 +45,7 @@ function App() {
   const [light, setLight] = React.useState(false);
   const [page, setPage] = useState(Pages.Home);
   const [snackbar, setSnackbar] = useState({open: false, message: '', color: 'info' as 'info' | 'success' | 'error'});
+  const [account, setAccount] = useState<string | null>(null);
 
   const showSnack = (message: string, color: 'info' | 'success' | 'error') => {
     setSnackbar({open: true, message: message, color: color});
@@ -62,7 +63,7 @@ function App() {
 
 
   return (
-    <AppContext.Provider value={{ setPage: setPage, showSnackbar: showSnack, light: light, setLight: setLight }}>
+    <AppContext.Provider value={{ setPage: setPage, showSnackbar: showSnack, light: light, setLight: setLight, connectedAddress: account, setConnectedAddress: setAccount }}>
       <ThemeProvider theme={light?LightTheme:DarkTheme}>
         <CssBaseline />
         <div className='flex flex-row w-full min-h-screen'>

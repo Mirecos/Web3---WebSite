@@ -5,6 +5,7 @@ pragma solidity ^0.8.23;
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {ERC721URIStorage} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
 contract TokenNFTMRC is ERC721URIStorage, Ownable {
     uint256 private _nextTokenId;
@@ -12,14 +13,16 @@ contract TokenNFTMRC is ERC721URIStorage, Ownable {
     // Array to keep track of all tokens
     uint256[] private _allTokens;
 
-    constructor(address initialOwner)
+    constructor()
         ERC721("MIRECOS NFT", "MRNFT")
-        Ownable(initialOwner)
+        Ownable(msg.sender)
     {
         // Mint 5 NFTs to the initial owner
         for (uint256 i = 0; i < 5; i++) {
             uint256 tokenId = _nextTokenId++;
-            _safeMint(initialOwner, tokenId);
+            string memory tokenUR = string(abi.encodePacked("https://web-production-8414.up.railway.app/", Strings.toString(tokenId)));
+            _setTokenURI(tokenId, tokenUR);
+            _safeMint(msg.sender, tokenId);
             _allTokens.push(tokenId);
         }
     }

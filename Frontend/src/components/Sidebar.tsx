@@ -32,7 +32,6 @@ const DrawerLayout: React.FC<DrawerLayoutProps> = ({ children }) => {
     const appContext = React.useContext(AppContext);
     const [totalSupply, setTotalSupply] = useState("");
     const [open, setOpen] = useState(false);
-    const [account, setAccount] = useState<string | null>(null);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -43,11 +42,16 @@ const DrawerLayout: React.FC<DrawerLayoutProps> = ({ children }) => {
     };
 
     const connectWallet = async () => {
-        console.log("Connecting wallet...");
         if (window.ethereum) {
+            const targetChainId = '0x13882';
             try {
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                setAccount(accounts[0]);
+                appContext.setConnectedAddress(accounts[0]);
+
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: targetChainId }],
+                });
             } catch (error) {
                 console.error("User rejected the request.");
             }
@@ -60,6 +64,9 @@ const DrawerLayout: React.FC<DrawerLayoutProps> = ({ children }) => {
         blockchainClient.read.totalSupply().then((result) => {
             setTotalSupply((result as BigInt).toString());
         });
+        if(window.ethereum ){
+            appContext.setConnectedAddress(null);
+        }
     }, [])
 
     return (
@@ -91,10 +98,20 @@ const DrawerLayout: React.FC<DrawerLayoutProps> = ({ children }) => {
                             color="default"
                         />
 
-                        {account ? (
-                            <Typography variant="body1" noWrap component="div" sx={{ ml: 2 }}>
-                                {account}
-                            </Typography>
+                        { appContext.connectedAddress ? (
+                            <div className='flex flex-row gap-8'>
+                                <Typography variant="body1" noWrap component="div" sx={{ ml: 2 }}>
+                                    { appContext.connectedAddress}
+                                </Typography>
+                                <Button
+                                    color="inherit"
+                                    variant="outlined"
+                                    size="small"
+                                    className='text-white'
+                                    onClick={()=> { appContext.setConnectedAddress(null)  }}>
+                                    Logout
+                                </Button>
+                            </div>
                         ) : (
                             <Button 
                                 color="inherit" 

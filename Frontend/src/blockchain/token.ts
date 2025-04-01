@@ -41,6 +41,6 @@ const contractABI = [
     }
 ];
 
-const contractAddress = '0xcdFF2A5AE2DaDCADc7Ae5DA0ACb6d8352ACd9056';
+const contractAddress = '0x4ce2beA5E62c2EDBfEf2048598C4dA5570B6B889';
 export const blockchainClient = getContract({ address: contractAddress, abi: contractABI, client: client })
 

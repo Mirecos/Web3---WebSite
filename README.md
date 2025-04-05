@@ -11,6 +11,8 @@ Puis
 $ docker compose up
 ```
 
+Verifier que le 'start.sh' dans '/Frontend' a bien 'LF' en caractère de fin de ligne si jamais il y a un bug. 
+
 ## Vidéos explicatives
 
 IMPORTANT : Sur les vidéos on ne voit juste pas les interactions avec RabbyWallet ( Connexion / Signature de contrat). Mais on voit quand meme assez bien les fonctionnalités principales.

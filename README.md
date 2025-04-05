@@ -1,4 +1,6 @@
-# Projet crypto blockchain
+# Projet crypto blockchain 
+## Nom : RECCHIA
+## Prénom : Michel
 
 ## Installation 
 

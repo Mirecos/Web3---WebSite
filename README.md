@@ -3,9 +3,13 @@
 ## Installation 
 
 - Tout d'abord, cloner le projet. Puis lancer a la racine du projet :
-
+```
 $ docker compose build
+```
+Puis
+```
 $ docker compose up
+```
 
 ## Vidéos explicatives
 

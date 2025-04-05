@@ -11,7 +11,7 @@ Puis
 $ docker compose up
 ```
 
-Verifier que le 'start.sh' dans '/Frontend' a bien 'LF' en caractère de fin de ligne si jamais il y a un bug. 
+Verifier que le 'start.sh' dans '/Frontend' a bien 'LF' en caractère de fin de ligne si jamais il y a un bug en rapport avec ca. 
 
 ## Vidéos explicatives
 

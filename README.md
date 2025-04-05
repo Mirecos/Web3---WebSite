@@ -1,4 +1,11 @@
 # Projet crypto blockchain 
+
+Le site est une plateforme d'enchère de NFT via une crypto perso (MRC).
+
+Au passage voila aussi un début de dashboard DUNE car je trouvais ca sympa :
+https://dune.com/mirec/first-dashboard
+
+
 ## Nom : RECCHIA
 ## Prénom : Michel
 

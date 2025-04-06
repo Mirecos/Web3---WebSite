@@ -2,6 +2,10 @@
 
 Le site est une plateforme d'enchère de NFT via une crypto perso (MRC).
 
+L'API qui s'occupe des 'TokenURI' des NFTS est sur le git ici : 
+
+https://github.com/Mirecos/WEB3---API
+
 Au passage voila aussi un début de dashboard DUNE car je trouvais ca sympa :
 https://dune.com/mirec/first-dashboard
 
